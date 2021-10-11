@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "691166178302",
+    "project_id": "schoolhub-2",
+    "storage_bucket": "schoolhub-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691166178302:android:eec16a5c73857873a8eeaf",
+        "android_client_info": {
+          "package_name": "com.lpchub.lpchub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691166178302-4j2qgun12mr4bd0a3uos10q8uu7cb9fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeGkihlx2mKPYNNgGsa4nfyPbi5lMVha8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691166178302-4j2qgun12mr4bd0a3uos10q8uu7cb9fb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
