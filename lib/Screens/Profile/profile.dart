@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
 
@@ -26,12 +27,13 @@ class ProfileScreen extends StatelessWidget{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/calendar.svg",
+                  Icon(
+                    LineAwesomeIcons.dashcube,
                     color: isActive ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "Today",
+                    "Dashboard",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -44,12 +46,17 @@ class ProfileScreen extends StatelessWidget{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/gym.svg",
+                  // SvgPicture.asset(
+                  //   "asset/icons/gym.svg",
+                  //   color: isActive ? kActiveIconColor : kTextColor,
+                  // ),
+                  Icon(
+                    LineAwesomeIcons.rocket_chat,
                     color: isActive ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "All Exercises",
+                    "Messages",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -57,17 +64,19 @@ class ProfileScreen extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
+
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/Settings.svg",
+                  Icon(
+                    LineAwesomeIcons.laugh_face_with_beaming_eyes,
                     color: isActive1 ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "Settings",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
+                    "Memes",
+                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),

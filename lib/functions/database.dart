@@ -16,10 +16,10 @@ class DatabaseMethods{
   }
   
   updateLastMessageSend(String chatRoomId, Map<String, dynamic> lastMessageInfoMap){
-    FirebaseFirestore.instance.collection("chatRooms").doc(chatRoomId).update(lastMessageInfoMap);
+    FirebaseFirestore.instance.collection("chatRooms").doc(chatRoomId).set(lastMessageInfoMap, SetOptions(merge: true));
   }
 
-  createChatRoom(String chatRoomId, Map<String, dynamic> chatRoomInfoMap) async{
+  createChatRoom(String chatRoomId, Map<String, dynamic> chatRoomInfoMap,Map<String, dynamic> chatRoomInfoMap2) async{
     final snapshot = await FirebaseFirestore.instance.collection("chatRooms").doc(chatRoomId).get();
 
     if(snapshot.exists){
@@ -35,7 +35,7 @@ class DatabaseMethods{
 
   Future<Stream<QuerySnapshot>> getChatRooms() async{
     String? myName = await SharedPreferenceHelper().getUserName();
-    return FirebaseFirestore.instance.collection("chatRooms").orderBy("lastMessageSendTs", descending: true).where("users", arrayContains: myName).snapshots();
+    return FirebaseFirestore.instance.collection("chatRooms").where("users", arrayContains: myName).orderBy("lastMessageSendTs", descending: true).snapshots();
     
   }
 

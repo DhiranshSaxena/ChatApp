@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Profile/profile.dart';
+import 'package:lpchub/functions/sharedPref_helper.dart';
 
 import '../../constant.dart';
 import 'components/category_card.dart';
@@ -24,7 +26,33 @@ class Dash extends StatelessWidget {
   }
 }
 
-class DashboardMain extends StatelessWidget{
+class DashboardMain extends StatefulWidget{
+  _DashboardMainState createState() => _DashboardMainState();
+}
+
+class _DashboardMainState extends State<DashboardMain>{
+
+  late String myName="", myProfilePic, myUserName, myEmail;
+
+  getMyInfoFromSharedPreferences() async{
+    myName = (await SharedPreferenceHelper().getDisplayName())!;
+    myProfilePic = (await SharedPreferenceHelper().getUserProfileUrl())!;
+    myUserName = (await SharedPreferenceHelper().getUserName())!;
+    myEmail = (await SharedPreferenceHelper().getUserEmail())!;
+  }
+
+  onScreenLoaded() async{
+    await getMyInfoFromSharedPreferences();
+    setState(() {
+    });
+  }
+
+  @override
+  void initState(){
+    onScreenLoaded();
+    super.initState();
+  }
+
   final bool isActive1= true;
   final bool isActive= false;
 
@@ -44,12 +72,13 @@ class DashboardMain extends StatelessWidget{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/calendar.svg",
+                  Icon(
+                    LineAwesomeIcons.dashcube,
                     color: isActive1 ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "Today",
+                    "Dashboard",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -62,12 +91,17 @@ class DashboardMain extends StatelessWidget{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/gym.svg",
+                  // SvgPicture.asset(
+                  //   "asset/icons/gym.svg",
+                  //   color: isActive ? kActiveIconColor : kTextColor,
+                  // ),
+                  Icon(
+                    LineAwesomeIcons.rocket_chat,
                     color: isActive ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "All Exercises",
+                    "Messages",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -80,12 +114,13 @@ class DashboardMain extends StatelessWidget{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/Settings.svg",
+                  Icon(
+                    LineAwesomeIcons.laugh_face_with_beaming_eyes,
                     color: isActive ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "Settings",
+                    "Memes",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -127,7 +162,7 @@ class DashboardMain extends StatelessWidget{
                     ),
                   ),
                   Text(
-                    "Good Morning \nShishir",
+                    "Good Morning, \n${myName}" ,
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
@@ -183,7 +218,7 @@ class DashboardMain extends StatelessWidget{
                                       SvgPicture.asset("asset/icons/Hamburger.svg"),
                                       Spacer(),
                                       Text(
-                                        "Diet Recommendation",
+                                        "Resources",
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
@@ -225,7 +260,7 @@ class DashboardMain extends StatelessWidget{
                                       SvgPicture.asset("asset/icons/Hamburger.svg"),
                                       Spacer(),
                                       Text(
-                                        "Diet Recommendation",
+                                        "Alumni",
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
@@ -267,7 +302,7 @@ class DashboardMain extends StatelessWidget{
                                       SvgPicture.asset("asset/icons/Hamburger.svg"),
                                       Spacer(),
                                       Text(
-                                        "Diet Recommendation",
+                                        "Near Your Place",
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
@@ -309,7 +344,7 @@ class DashboardMain extends StatelessWidget{
                                       SvgPicture.asset("asset/icons/Hamburger.svg"),
                                       Spacer(),
                                       Text(
-                                        "Diet Recommendation",
+                                        "Confessions",
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatRoom/chatroom.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
+import 'package:lpchub/Screens/Profile/profile.dart';
 import 'package:lpchub/functions/database.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
 
@@ -35,10 +37,12 @@ class _BodyState extends State<Body>{
   }
 
   getChatRoomIdByUserName(String a, String b){
-    if(a.substring(0,1).codeUnitAt(0) > a.substring(0,1).codeUnitAt(0)){
+
+    print("This is value of a ${a.substring(0,1).codeUnitAt(0)} and this is value of b ${b.substring(0,1).codeUnitAt(0)}");
+
+    if (a.compareTo(b)== 1) { // a < b returns -1, 0 if equal, 1 if b<a
       return "$b\_$a";
-    }
-    else{
+    } else {
       return "$a\_$b";
     }
   }
@@ -60,7 +64,11 @@ class _BodyState extends State<Body>{
           "users" : [ username, myUserName,]
         };
 
-        DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap);
+        Map<String, dynamic> chatRoomInfoMap2 = {
+          "users" : [ myUserName, username, ]
+        };
+
+        DatabaseMethods().createChatRoom(chatRoomId, chatRoomInfoMap, chatRoomInfoMap2);
 
         Navigator.push(context, MaterialPageRoute(builder: (context) => ChatRoom(profileUrl, username, name)));
       },
@@ -94,7 +102,7 @@ class _BodyState extends State<Body>{
               itemBuilder: (context, index){
                 DocumentSnapshot ds = snapshot.data!.docs[index];
                 return searchListUserTile(profileUrl: ds["imageUrl"], name: ds["name"], email : ds["email"], username : ds["username"]);
-              }) : Center(child: CircularProgressIndicator(),) ;
+              }) : Center(child: Text("Nothing To Show Here")) ;
         });
   }
 
@@ -131,6 +139,11 @@ class _BodyState extends State<Body>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(LineAwesomeIcons.alternate_share),
+        backgroundColor: Color(0xFFF2BEA1),
+      ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
         height: 80,
@@ -145,44 +158,54 @@ class _BodyState extends State<Body>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/calendar.svg",
+                  Icon(
+                    LineAwesomeIcons.dashcube,
                     color: isActive ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "Today",
+                    "Dashboard",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/gym.svg",
+                  // SvgPicture.asset(
+                  //   "asset/icons/gym.svg",
+                  //   color: isActive ? kActiveIconColor : kTextColor,
+                  // ),
+                  Icon(
+                    LineAwesomeIcons.rocket_chat,
                     color: isActive1 ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "All Exercises",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
+                    "Messages",
+                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),
             ),
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  SvgPicture.asset(
-                    "asset/icons/Settings.svg",
+                  Icon(
+                    LineAwesomeIcons.laugh_face_with_beaming_eyes,
                     color: isActive ? kActiveIconColor : kTextColor,
+                    size: 35,
                   ),
                   Text(
-                    "Settings",
+                    "Memes",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -252,20 +275,6 @@ class _BodyState extends State<Body>{
     );
   }
 }
-//
-// class chatTile extends StatelessWidget{
-//       late final String username;
-//       late final String chatRoomId;
-//       late final String lastMessage;
-//
-//       const chatTile({ required this.username, required this.chatRoomId, required this.lastMessage});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-// }
 
 class ChatRoomListTile extends StatefulWidget {
   final String lastMessage, chatRoomId, myUsername;
@@ -276,16 +285,16 @@ class ChatRoomListTile extends StatefulWidget {
 }
 
 class _ChatRoomListTileState extends State<ChatRoomListTile> {
+
+
   String profilePicUrl = "", name = "", username = "";
 
   getThisUserInfo() async {
     username =
         widget.chatRoomId.replaceAll(widget.myUsername, "").replaceAll("_", "");
     QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username);
-    print(
-        "something bla bla ${querySnapshot.docs[0].id} ${querySnapshot.docs[0]["name"]}  ${querySnapshot.docs[0]["imgUrl"]}");
     name = "${querySnapshot.docs[0]["name"]}";
-    profilePicUrl = "${querySnapshot.docs[0]["imgUrl"]}";
+    profilePicUrl = "${querySnapshot.docs[0]["imageUrl"]}";
     setState(() {});
   }
 
@@ -296,7 +305,9 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
+    double c_width = MediaQuery.of(context).size.width*0.65;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -312,8 +323,8 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
               borderRadius: BorderRadius.circular(30),
               child: Image.network(
                 profilePicUrl,
-                height: 40,
-                width: 40,
+                height: 50,
+                width: 50,
               ),
             ),
             SizedBox(width: 12),
@@ -322,14 +333,24 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
               children: [
                 Text(
                   name,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontWeight: FontWeight.w500 ,fontSize: 16),
                 ),
                 SizedBox(height: 3),
-                Text(widget.lastMessage)
+                Container(
+                  width: c_width,
+                    child: Text(widget.lastMessage, overflow: TextOverflow.ellipsis, maxLines: 1, softWrap: false,)),
               ],
             )
           ],
         ),
+      ),
+    );
+  }
+  Expanded buildDivider() {
+    return Expanded(
+      child: Divider(
+        color: Color(0xFFD9D9D9),
+        height: 1.5,
       ),
     );
   }

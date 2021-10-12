@@ -33,10 +33,9 @@ class _ChatRoomState extends State<ChatRoom>{
   }
 
   getChatRoomIdByUserName(String a, String b){
-    if(a.substring(0,1).codeUnitAt(0) > a.substring(0,1).codeUnitAt(0)){
+    if (a.compareTo(b)== 1) { // a < b returns -1, 0 if equal, 1 if b<a
       return "$b\_$a";
-    }
-    else{
+    } else {
       return "$a\_$b";
     }
   }
@@ -89,7 +88,15 @@ class _ChatRoomState extends State<ChatRoom>{
         Flexible(
           child: Container(
             decoration: BoxDecoration(
-              color: Color(0xFFF2BEA1),
+              color: sendBy ? Color(0xFFF2BEA1) : Colors.grey.shade200,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 2,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               borderRadius: BorderRadius.only(
                 bottomLeft: sendBy ? Radius.circular(24) : Radius.circular(0),
                 topLeft: Radius.circular(24),
@@ -116,6 +123,7 @@ class _ChatRoomState extends State<ChatRoom>{
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index){
               DocumentSnapshot ds = snapshot.data.docs[index];
+              // print("This is what it is returning right now - ${myUserName == ds["sendBy"]}");
               return chatMessageTile(ds["message"], myUserName == ds["sendBy"]);
             }) : Center(child: CircularProgressIndicator());
       },
@@ -141,9 +149,17 @@ class _ChatRoomState extends State<ChatRoom>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      // backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
         backgroundColor: Color(0xFFF2BEA1),
-        title: Text(widget.name, style: TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.bold, fontSize: 22),),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: CircleAvatar(
+              radius: 25,
+              backgroundImage: NetworkImage(widget.profileUrl)
+          ),
+        ),
+        title: Text(widget.name, style: TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.w500, fontSize: 22),),
       ),
       body: Container(
         child: Stack(
