@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
 import 'package:lpchub/Screens/SignUp/signup_screen.dart';
 import 'package:lpchub/functions/auth_functions.dart';
 import 'package:lpchub/functions/helper.dart';
+import 'package:lpchub/functions/sharedPref_helper.dart';
 
 import '../../../constant.dart';
 
@@ -13,6 +17,8 @@ class Body extends StatefulWidget{
 }
 
 class _BodyState extends State<Body> {
+
+  String imageUrl = "https://firebasestorage.googleapis.com/v0/b/schoolhub-2.appspot.com/o/Default%2Fman.png?alt=media&token=01d42963-db52-4a01-8055-526fa6133692";
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -153,6 +159,19 @@ class _BodyState extends State<Body> {
                                   dynamic result = await _auth.login(email, password);
                                   if(result != null){
                                     HelperFunc.saveUserloggedIn(true);
+
+                                    User? user = FirebaseAuth.instance.currentUser;
+                                    SharedPreferenceHelper().saveUserEmail(email);
+                                    SharedPreferenceHelper().saveUserId(user!.uid);
+                                    SharedPreferenceHelper().saveUserName(email.replaceAll("@gmail.com", ""));
+                                    SharedPreferenceHelper().saveUserProfile(imageUrl);
+                                    SharedPreferenceHelper().getDisplayName();
+
+                                    DocumentSnapshot ds = await FirebaseFirestore.instance.collection("users").doc(user.uid).get();
+                                    String displayName = ds["name"].toString();
+
+                                    SharedPreferenceHelper().saveUserDisplayName(displayName);
+
                                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                                       builder: (context) => Dash(),));
                                   }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
@@ -6,6 +8,7 @@ import 'package:lpchub/Screens/Register/register_screen.dart';
 import 'package:lpchub/functions/auth_functions.dart';
 import 'package:lpchub/functions/database.dart';
 import 'package:lpchub/functions/helper.dart';
+import 'package:lpchub/functions/sharedPref_helper.dart';
 
 import '../../../constant.dart';
 
@@ -21,7 +24,7 @@ class _BodyState extends State<Body> {
   String email = '';
   String password = '';
   String username = '';
-  String imageUrl = "gs://schoolhub-2.appspot.com/Default/man.png";
+  String imageUrl = "https://firebasestorage.googleapis.com/v0/b/schoolhub-2.appspot.com/o/Default%2Fman.png?alt=media&token=01d42963-db52-4a01-8055-526fa6133692";
 
   @override
   Widget build(BuildContext context) {
@@ -195,19 +198,45 @@ class _BodyState extends State<Body> {
                                   // }
 
                                   await AuthService().signup(email, password).then((result){
-                                   if(result != null){
-                                     Map<String,String> userDataMap = {
-                                       "name" : username,
-                                       "email" : email,
-                                       "username" : result.email!.replaceAll("@gmail.com", ""),
-                                       "imageUrl" : imageUrl
-                                     };
+                                   // if(result != null){
+                                   //   User? userDetails = result.user;
+                                   //
+                                   //   SharedPreferenceHelper().saveUserEmail(userDetails!.email.toString());
+                                   //   SharedPreferenceHelper().saveUserId(userDetails!.uid);
+                                   //   SharedPreferenceHelper().saveUserName(userDetails!.email!.replaceAll("@gmail.com", ""));
+                                   //   SharedPreferenceHelper().saveUserDisplayName(userDetails.displayName.toString());
+                                   //   SharedPreferenceHelper().saveUserProfile(imageUrl);
+                                   //
+                                   //   Map<String,dynamic> userDataMap = {
+                                   //     "name" : username,
+                                   //     "email" : email,
+                                   //     "username" : result.email!.replaceAll("@gmail.com", ""),
+                                   //     "imageUrl" : imageUrl
+                                   //   };
+                                   //
+                                   //   DatabaseMethods().addUserInfoToDB(result.uid, userDataMap).then((value) {
+                                   //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dash()));
+                                   //   });
+                                   //
+                                   // }
+                                    User? user = FirebaseAuth.instance.currentUser;
+                                    
+                                    FirebaseFirestore.instance.collection("users").doc(user!.uid).set({
+                                      "email" : email,
+                                      "username" : email.replaceAll("@gmail.com", ""),
+                                      "name" : username,
+                                      "imageUrl" : imageUrl
+                                    });
 
-                                     DatabaseMethods().addUserInfoToDB(result.uid, userDataMap).then((value) {
-                                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dash()));
-                                     });
+                                    SharedPreferenceHelper().saveUserEmail(email);
+                                    SharedPreferenceHelper().saveUserId(user!.uid);
+                                    SharedPreferenceHelper().saveUserName(email.replaceAll("@gmail.com", ""));
+                                    SharedPreferenceHelper().saveUserDisplayName(username);
+                                    SharedPreferenceHelper().saveUserProfile(imageUrl);
 
-                                   }
+                                    HelperFunc.saveUserloggedIn(true);
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dash()));
+
                                   });
                                 }
                               },

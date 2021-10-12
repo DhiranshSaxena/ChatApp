@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
+import 'package:lpchub/Screens/Memes/memes.dart';
 import 'package:lpchub/Screens/Profile/profile.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
 
@@ -31,6 +32,7 @@ class DashboardMain extends StatefulWidget{
 }
 
 class _DashboardMainState extends State<DashboardMain>{
+
 
   late String myName="", myProfilePic, myUserName, myEmail;
 
@@ -79,7 +81,7 @@ class _DashboardMainState extends State<DashboardMain>{
                   ),
                   Text(
                     "Dashboard",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
+                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),
@@ -109,7 +111,7 @@ class _DashboardMainState extends State<DashboardMain>{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -150,15 +152,20 @@ class _DashboardMainState extends State<DashboardMain>{
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topRight,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 52,
-                      width: 52,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF2BEA1),
-                        shape: BoxShape.circle,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 52,
+                        width: 52,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF2BEA1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: SvgPicture.asset("asset/icons/menu.svg"),
                       ),
-                      child: SvgPicture.asset("asset/icons/menu.svg"),
                     ),
                   ),
                   Text(

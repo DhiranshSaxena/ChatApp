@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatRoom/chatroom.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
+import 'package:lpchub/Screens/Memes/memes.dart';
 import 'package:lpchub/Screens/Profile/profile.dart';
 import 'package:lpchub/functions/database.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
@@ -194,7 +195,7 @@ class _BodyState extends State<Body>{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -319,13 +320,20 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
         margin: EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: [
-            ClipRRect(
+            profilePicUrl != "No Image" ? ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: Image.network(
                 profilePicUrl,
                 height: 50,
                 width: 50,
               ),
+            ) : ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image(
+                image: AssetImage("asset/images/avatar.png"),
+                width: 20,
+                height: 20,
+              )
             ),
             SizedBox(width: 12),
             Column(

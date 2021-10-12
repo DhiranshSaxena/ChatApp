@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
+import 'package:lpchub/Screens/Memes/memes.dart';
 
 import '../../constant.dart';
 import 'components/body.dart';
@@ -64,19 +65,19 @@ class ProfileScreen extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Icon(
                     LineAwesomeIcons.laugh_face_with_beaming_eyes,
-                    color: isActive1 ? kActiveIconColor : kTextColor,
+                    color: isActive ? kActiveIconColor : kTextColor,
                     size: 35,
                   ),
                   Text(
                     "Memes",
-                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
+                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),

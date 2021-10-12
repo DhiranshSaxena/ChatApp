@@ -40,6 +40,8 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   line_awesome_flutter: ^2.0.0
   animated_theme_switcher: ^2.0.1
+  image_picker: ^0.8.4+2
+  fluttertoast: ^8.0.8
 
 
 dev_dependencies:
