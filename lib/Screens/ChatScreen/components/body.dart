@@ -143,7 +143,7 @@ class _BodyState extends State<Body>{
       floatingActionButton: FloatingActionButton(
         onPressed: (){},
         child: Icon(LineAwesomeIcons.alternate_share),
-        backgroundColor: Color(0xFFF2BEA1),
+        backgroundColor: Color(0xff686795),
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
@@ -217,7 +217,7 @@ class _BodyState extends State<Body>{
       ),
       appBar: AppBar(
         title: Center(child: Text("SchoolHub", style: TextStyle(fontSize: 24 ,fontFamily: "Cairo"),)),
-        backgroundColor: Color(0xFFF2BEA1),
+        backgroundColor: Color(0xff686795),
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 24),

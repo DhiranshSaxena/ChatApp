@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lpchub/Components/app_theme.dart';
 import 'package:lpchub/functions/database.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
 import 'package:random_string/random_string.dart';
@@ -85,10 +86,15 @@ class _ChatRoomState extends State<ChatRoom>{
     return Row(
       mainAxisAlignment: sendBy ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
+        if(sendBy == false)
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.profileUrl),
+            radius: 15,
+          ),
         Flexible(
           child: Container(
             decoration: BoxDecoration(
-              color: sendBy ? Color(0xFFF2BEA1) : Colors.grey.shade200,
+              color: sendBy ? MyTheme.kAccentColor : Colors.grey.shade200,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -98,10 +104,10 @@ class _ChatRoomState extends State<ChatRoom>{
                   ),
                 ],
               borderRadius: BorderRadius.only(
-                bottomLeft: sendBy ? Radius.circular(24) : Radius.circular(0),
-                topLeft: Radius.circular(24),
-                bottomRight: sendBy ? Radius.circular(0) : Radius.circular(24),
-                topRight: Radius.circular(24),
+                bottomLeft: sendBy ? Radius.circular(12) : Radius.circular(0),
+                topLeft: Radius.circular(16),
+                bottomRight: sendBy ? Radius.circular(0) : Radius.circular(12),
+                topRight: Radius.circular(16),
               )
             ),
             margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -151,53 +157,102 @@ class _ChatRoomState extends State<ChatRoom>{
     return Scaffold(
       // backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
-        backgroundColor: Color(0xFFF2BEA1),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 15.0),
-          child: CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(widget.profileUrl)
-          ),
-        ),
-        title: Text(widget.name, style: TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.w500, fontSize: 22),),
-      ),
-      body: Container(
-        child: Stack(
+        elevation: 0.0,
+        backgroundColor: Color(0xff686795),
+        // title: Text(widget.name, style: TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.w500, fontSize: 22),),
+        title: Row(
           children: [
-            chatMessage(),
-            Container(
-              padding: EdgeInsets.only(bottom: 7, left: 10, right: 10),
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  color: Colors.black87.withOpacity(0.25),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Type a message",
-                        hintStyle: TextStyle(fontWeight: FontWeight.w500)
-                      ),
-                    controller: messageTextEditingController,
-                      onChanged: (value){
-                        addMessage(false);
-                      },
-                    )),
-                    GestureDetector(
-                      onTap: (){
-                        addMessage(true);
-                      },
-                        child: Icon(Icons.send,))
-                  ],
-                ),
-            ),),
+            CircleAvatar(
+              radius: 25,
+              backgroundImage: NetworkImage(widget.profileUrl),
+              backgroundColor: Colors.white,
+            ),
+            SizedBox(width: 10),
+            Text(widget.name, style: MyTheme.chatSenderName,)
           ],
         ),
+        actions: [
+          IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.call, size: 28,),),
+          IconButton(
+            onPressed: (){},
+            icon: Icon(Icons.videocam_outlined, size: 28,),),
+          SizedBox(
+            width: 10,
+          )
+        ],
+        toolbarHeight: 90,
+        centerTitle: false,
       ),
+        backgroundColor: Color(0xff686795),
+      body: Column(
+        children: [
+          Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)
+                  )
+                ),
+                child: Container(
+                  child: Stack(
+                    children: [
+                      chatMessage(),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 7, left: 10, right: 10),
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: Colors.grey.shade200,
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.emoji_emotions_outlined,
+                                color: Colors.grey.shade500,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(child: TextField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Type a message",
+                                    hintStyle: TextStyle(fontWeight: FontWeight.w500)
+                                ),
+                                controller: messageTextEditingController,
+                                onChanged: (value){
+                                  addMessage(false);
+                                },
+                              )),
+                              Icon(
+                                Icons.attach_file,
+                                color: Colors.grey.shade500,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              GestureDetector(
+                                  onTap: (){
+                                    addMessage(true);
+                                  },
+                                  child: Icon(Icons.send,))
+                            ],
+                          ),
+
+                        ),),
+
+                    ],
+                  ),
+                ),
+              ))
+        ],
+      )
     );
   }
 }

@@ -18,6 +18,8 @@ class Body extends StatefulWidget{
 
 class _BodyState extends State<Body> {
 
+  bool isHiddenPassword = true;
+
   String imageUrl = "https://firebasestorage.googleapis.com/v0/b/schoolhub-2.appspot.com/o/Default%2Fman.png?alt=media&token=01d42963-db52-4a01-8055-526fa6133692";
 
   final TextEditingController emailController = TextEditingController();
@@ -115,7 +117,7 @@ class _BodyState extends State<Body> {
                             borderRadius: BorderRadius.circular(29),
                           ),
                           child: TextFormField(
-                            obscureText: true,
+                            obscureText: isHiddenPassword,
                             onChanged: (value){},
                             cursorColor: kPrimaryColor,
                             decoration: InputDecoration(
@@ -124,9 +126,14 @@ class _BodyState extends State<Body> {
                                 Icons.lock,
                                 color: kPrimaryColor,
                               ),
-                              suffixIcon: Icon(
-                                Icons.visibility,
-                                color: kPrimaryColor,
+                              suffixIcon: InkWell(
+                                onTap: (){
+                                  _tooglePasswordView();
+                                },
+                                child: Icon(
+                                  Icons.visibility,
+                                  color: kPrimaryColor,
+                                ),
                               ),
                               border: InputBorder.none,
                             ),
@@ -217,4 +224,17 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+
+  void _tooglePasswordView(){
+    if(isHiddenPassword == true){
+      isHiddenPassword = false;
+    }
+    else{
+      isHiddenPassword = true;
+    }
+    setState(() {
+
+    });
+  }
+
 }

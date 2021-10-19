@@ -4,6 +4,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Memes/memes.dart';
 import 'package:lpchub/Screens/Profile/profile.dart';
+import 'package:lpchub/Screens/Resources/resources.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
 
 import '../../constant.dart';
@@ -16,7 +17,7 @@ class Dash extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Meditation App',
+      title: 'Dashboard',
       theme: ThemeData(
         fontFamily: "Cairo",
         scaffoldBackgroundColor: kBackgroundColor,
@@ -137,7 +138,7 @@ class _DashboardMainState extends State<DashboardMain>{
             // Here the height of the container is 45% of our total height
             height: size.height * .45,
             decoration: BoxDecoration(
-              color: Color(0xFFF5CEB8),
+              color: Color(0xff686795),
               image: DecorationImage(
                 alignment: Alignment.centerLeft,
                 image: AssetImage("asset/images/pilates.png"),
@@ -161,7 +162,7 @@ class _DashboardMainState extends State<DashboardMain>{
                         height: 52,
                         width: 52,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF2BEA1),
+                          color: Color(0xff7C7B9B),
                           shape: BoxShape.circle,
                         ),
                         child: SvgPicture.asset("asset/icons/menu.svg"),
@@ -169,11 +170,11 @@ class _DashboardMainState extends State<DashboardMain>{
                     ),
                   ),
                   Text(
-                    "Good Morning, \n${myName}" ,
+                    "Good Morning, \n${myName}",
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
-                        .copyWith(fontWeight: FontWeight.w900),
+                        .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 30),
@@ -216,13 +217,15 @@ class _DashboardMainState extends State<DashboardMain>{
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Resources()));
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
                                     children: <Widget>[
                                       Spacer(),
-                                      SvgPicture.asset("asset/icons/Hamburger.svg"),
+                                      SvgPicture.asset("asset/icons/resources.svg", height: 70,width: 70,),
                                       Spacer(),
                                       Text(
                                         "Resources",
@@ -264,7 +267,7 @@ class _DashboardMainState extends State<DashboardMain>{
                                   child: Column(
                                     children: <Widget>[
                                       Spacer(),
-                                      SvgPicture.asset("asset/icons/Hamburger.svg"),
+                                      SvgPicture.asset("asset/icons/alumni.svg", height: 70,width: 70,),
                                       Spacer(),
                                       Text(
                                         "Alumni",
@@ -348,7 +351,7 @@ class _DashboardMainState extends State<DashboardMain>{
                                   child: Column(
                                     children: <Widget>[
                                       Spacer(),
-                                      SvgPicture.asset("asset/icons/Hamburger.svg"),
+                                      SvgPicture.asset("asset/icons/confession.svg", height: 70,width: 70,),
                                       Spacer(),
                                       Text(
                                         "Confessions",

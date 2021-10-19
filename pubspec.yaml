@@ -42,6 +42,12 @@ dependencies:
   animated_theme_switcher: ^2.0.1
   image_picker: ^0.8.4+2
   fluttertoast: ^8.0.8
+  flutter_facebook_auth: "^3.5.0"
+  google_fonts: ^2.1.0
+  emoji_picker: ^0.0.2
+  flutter_keyboard_visibility: ^5.1.0
+  firebase_storage: ^10.0.5
+  timeago: ^3.1.0
 
 
 dev_dependencies:

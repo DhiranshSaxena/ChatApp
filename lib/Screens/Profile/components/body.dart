@@ -45,6 +45,7 @@ class _BodyState extends State<Body>{
                 children: [
                   CircleAvatar(
                     radius: 55,
+                    backgroundColor: Color(0xff686795),
                     backgroundImage: NetworkImage(
                       myProfilePic
                     ),

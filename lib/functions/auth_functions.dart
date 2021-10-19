@@ -9,6 +9,7 @@ import 'package:lpchub/functions/user.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class AuthService
 {
@@ -21,6 +22,47 @@ class AuthService
 
   getCurrentUser(){
     return _auth.currentUser;
+  }
+
+   signInWithFacebook(BuildContext context) async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login(
+      permissions: ['email', 'public_profile', 'user_birthday']
+    );
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+
+    //Getting user data
+    final userData = await FacebookAuth.instance.getUserData();
+
+
+
+    // Once signed in, return the UserCredential
+    UserCredential result = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    User? userDetails = result.user;
+
+    if(result != null){
+      SharedPreferenceHelper().saveUserEmail(userDetails!.email.toString());
+      SharedPreferenceHelper().saveUserId(userDetails!.uid);
+      SharedPreferenceHelper().saveUserName(userDetails!.email!.replaceAll("@gmail.com", ""));
+      SharedPreferenceHelper().saveUserDisplayName(userDetails.displayName.toString());
+      SharedPreferenceHelper().saveUserProfile(userDetails.photoURL.toString());
+
+      Map<String, dynamic> userInfoMap = {
+        "email" : userDetails.email,
+        "username" : userDetails.email!.replaceAll("@gmail.com", ""),
+        "name" : userDetails.displayName,
+        "imageUrl" : userDetails.photoURL
+      };
+
+      DatabaseMethods().addUserInfoToDB(userDetails.uid, userInfoMap).then((value) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dash()));
+      });
+
+    }
+
   }
 
   //signIn as Google

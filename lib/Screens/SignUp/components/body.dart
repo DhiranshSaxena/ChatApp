@@ -19,6 +19,8 @@ class Body extends StatefulWidget{
 
 class _BodyState extends State<Body> {
 
+  bool isHiddenPassword = true;
+
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
   String email = '';
@@ -147,7 +149,7 @@ class _BodyState extends State<Body> {
                             borderRadius: BorderRadius.circular(29),
                           ),
                           child: TextFormField(
-                              obscureText: true,
+                              obscureText: isHiddenPassword,
                               onChanged: (value){},
                               cursorColor: kPrimaryColor,
                               decoration: InputDecoration(
@@ -156,9 +158,14 @@ class _BodyState extends State<Body> {
                                   Icons.lock,
                                   color: kPrimaryColor,
                                 ),
-                                suffixIcon: Icon(
-                                  Icons.visibility,
-                                  color: kPrimaryColor,
+                                suffixIcon: InkWell(
+                                  onTap: (){
+                                    _tooglePasswordView();
+                                  },
+                                  child: Icon(
+                                    Icons.visibility,
+                                    color: kPrimaryColor,
+                                  ),
                                 ),
                                 border: InputBorder.none,
                               ),
@@ -293,7 +300,10 @@ class _BodyState extends State<Body> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             GestureDetector(
-                              onTap: (){},
+                              onTap: (){
+                                AuthService().signInWithFacebook(context);
+                                HelperFunc.saveUserloggedIn(true);
+                              },
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 10),
                                 padding: EdgeInsets.all(20),
@@ -373,5 +383,15 @@ class _BodyState extends State<Body> {
         height: 1.5,
       ),
     );
+  }
+  void _tooglePasswordView(){
+    if(isHiddenPassword == true){
+      isHiddenPassword = false;
+    }
+    else{
+      isHiddenPassword = true;
+    }
+    setState(() {
+    });
   }
 }
