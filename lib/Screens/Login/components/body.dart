@@ -201,7 +201,7 @@ class _BodyState extends State<Body> {
                             ),
                             GestureDetector(
                               onTap: (){
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignUpScreen()));
                               },
                               child: Text(
                                 true ? "Sign Up" : "Sign In",

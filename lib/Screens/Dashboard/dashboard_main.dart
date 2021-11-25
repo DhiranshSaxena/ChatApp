@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Components/coming_soon.dart';
+import 'package:lpchub/Screens/Alumni/alumni.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
+import 'package:lpchub/Screens/Confessions/confessions.dart';
 import 'package:lpchub/Screens/Memes/memes.dart';
+import 'package:lpchub/Screens/News/news_screen.dart';
 import 'package:lpchub/Screens/Profile/profile.dart';
 import 'package:lpchub/Screens/Resources/resources.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
@@ -89,7 +94,7 @@ class _DashboardMainState extends State<DashboardMain>{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ChatScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -104,7 +109,7 @@ class _DashboardMainState extends State<DashboardMain>{
                     size: 35,
                   ),
                   Text(
-                    "Messages",
+                    "Social",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -112,7 +117,7 @@ class _DashboardMainState extends State<DashboardMain>{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComingSoon()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -123,7 +128,7 @@ class _DashboardMainState extends State<DashboardMain>{
                     size: 35,
                   ),
                   Text(
-                    "Memes",
+                    "Coming-Soon",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -151,6 +156,9 @@ class _DashboardMainState extends State<DashboardMain>{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
@@ -261,7 +269,9 @@ class _DashboardMainState extends State<DashboardMain>{
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Alumni()));
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
@@ -303,7 +313,9 @@ class _DashboardMainState extends State<DashboardMain>{
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewsScreen()));
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
@@ -345,7 +357,9 @@ class _DashboardMainState extends State<DashboardMain>{
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Confession()));
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(

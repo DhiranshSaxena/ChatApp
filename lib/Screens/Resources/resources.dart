@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
+import 'package:lpchub/Screens/Memes/memes.dart';
 
 import '../../constant.dart';
 
@@ -20,7 +22,9 @@ class Resources extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dash()));
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -38,7 +42,7 @@ class Resources extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ChatScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -53,7 +57,7 @@ class Resources extends StatelessWidget{
                     size: 35,
                   ),
                   Text(
-                    "Messages",
+                    "Social",
                     style: TextStyle(color: isActive ? kBlueColor : kTextColor),
                   ),
                 ],
@@ -61,7 +65,7 @@ class Resources extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
+
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,7 +76,7 @@ class Resources extends StatelessWidget{
                     size: 35,
                   ),
                   Text(
-                    "Memes",
+                    "Coming Soon",
                     style: TextStyle(color: isActive ? kBlueColor : kTextColor),
                   ),
                 ],
@@ -119,7 +123,7 @@ class Resources extends StatelessWidget{
                       SizedBox(
                         width: size.width * .6, // it just take 60% of total width
                         child: Text(
-                          "Live happier and stress free by reading our last minute materials just for you by toppers all arounf the world!",
+                          "Live happier and stress free by reading our last minute materials just for you by toppers from all around India!",
                         ),
                       ),
                       SizedBox(

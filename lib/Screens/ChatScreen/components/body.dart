@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Screens/ChatRoom/chatroom.dart';
@@ -145,78 +146,8 @@ class _BodyState extends State<Body>{
         child: Icon(LineAwesomeIcons.alternate_share),
         backgroundColor: Color(0xff686795),
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        height: 80,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            GestureDetector(
-              onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dash()));
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Icon(
-                    LineAwesomeIcons.dashcube,
-                    color: isActive ? kActiveIconColor : kTextColor,
-                    size: 35,
-                  ),
-                  Text(
-                    "Dashboard",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
-                  ),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: (){
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  // SvgPicture.asset(
-                  //   "asset/icons/gym.svg",
-                  //   color: isActive ? kActiveIconColor : kTextColor,
-                  // ),
-                  Icon(
-                    LineAwesomeIcons.rocket_chat,
-                    color: isActive1 ? kActiveIconColor : kTextColor,
-                    size: 35,
-                  ),
-                  Text(
-                    "Messages",
-                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
-                  ),
-                ],
-              ),
-            ),
-            GestureDetector(
-              onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Icon(
-                    LineAwesomeIcons.laugh_face_with_beaming_eyes,
-                    color: isActive ? kActiveIconColor : kTextColor,
-                    size: 35,
-                  ),
-                  Text(
-                    "Memes",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
-        title: Center(child: Text("SchoolHub", style: TextStyle(fontSize: 24 ,fontFamily: "Cairo"),)),
+        title: Text("SchoolHub", style: TextStyle(fontSize: 24 ,fontFamily: "Cairo"),),
         backgroundColor: Color(0xff686795),
       ),
       body: Container(

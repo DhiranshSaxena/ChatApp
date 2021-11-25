@@ -14,6 +14,7 @@ class ProfileScreen extends StatelessWidget{
 
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
         height: 80,
@@ -23,7 +24,7 @@ class ProfileScreen extends StatelessWidget{
           children: <Widget>[
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dash()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dash()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -42,7 +43,7 @@ class ProfileScreen extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ChatScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -57,7 +58,7 @@ class ProfileScreen extends StatelessWidget{
                     size: 35,
                   ),
                   Text(
-                    "Messages",
+                    "Social",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
@@ -65,7 +66,7 @@ class ProfileScreen extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -76,7 +77,7 @@ class ProfileScreen extends StatelessWidget{
                     size: 35,
                   ),
                   Text(
-                    "Memes",
+                    "Coming Soon",
                     style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],

@@ -15,12 +15,12 @@ import 'package:lpchub/Screens/Memes/components/image_upload.dart';
 
 import '../../constant.dart';
 
-class Meme extends StatefulWidget{
+class NewsScreen extends StatefulWidget{
   @override
-  _MemeState createState()  => _MemeState();
+  _NewsScreenState createState()  => _NewsScreenState();
 }
 
-class _MemeState extends State<Meme>{
+class _NewsScreenState extends State<NewsScreen>{
 
   final bool isActive1= true;
   final bool isActive= false;
@@ -36,78 +36,8 @@ class _MemeState extends State<Meme>{
       appBar: AppBar(
         elevation: 0.0,
         title: Center(child: Text("SchoolHub", style: TextStyle(fontSize: 24 ,fontFamily: "Cairo"),),
-          ),
-
+        ),
         backgroundColor: Color(0xff686795),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: InkWell(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen()));
-              },
-                child: Icon(Icons.chat_bubble_outline_rounded)
-            ),
-          )
-        ],
-        leading: IconButton(
-              icon: Icon(Icons.camera_alt),
-              onPressed: (){
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context){
-                      return Container(
-                        height: MediaQuery.of(context).size.height*0.1,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Color(0xff686795),
-
-                        ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 150.0),
-                              child: Divider(
-                                thickness: 4.0,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                MaterialButton(
-                                  color: Color(0xff686795),
-                                  onPressed: (){
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MemeUpload()));
-                                  },
-                                  child: Text("Gallery", style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20
-                                  ),),
-                                  elevation: 0.0,
-                                ),
-                                MaterialButton(
-                                  color: Color(0xff686795),
-                                  onPressed: (){
-                                    showSnackBar("Coming Soon", Duration(milliseconds: 1000));
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text("Camera", style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20
-                                  ),),
-                                  elevation: 0.0,
-                                )
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-              },
-            ),
 
       ),
       bottomNavigationBar: Container(
@@ -138,7 +68,7 @@ class _MemeState extends State<Meme>{
             ),
             GestureDetector(
               onTap: (){
-
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ChatScreen()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -149,12 +79,12 @@ class _MemeState extends State<Meme>{
                   // ),
                   Icon(
                     LineAwesomeIcons.rocket_chat,
-                    color: isActive1 ? kActiveIconColor : kTextColor,
+                    color: isActive ? kActiveIconColor : kTextColor,
                     size: 35,
                   ),
                   Text(
-                    "Social",
-                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
+                    "Messages",
+                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),
@@ -168,12 +98,12 @@ class _MemeState extends State<Meme>{
                 children: <Widget>[
                   Icon(
                     LineAwesomeIcons.laugh_face_with_beaming_eyes,
-                    color: isActive ? kActiveIconColor : kTextColor,
+                    color: isActive1 ? kActiveIconColor : kTextColor,
                     size: 35,
                   ),
                   Text(
-                    "Coming-Soon",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
+                    "Memes",
+                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
                   ),
                 ],
               ),
@@ -191,14 +121,14 @@ class _MemeState extends State<Meme>{
         padding: const EdgeInsets.only(top: 10.0),
         child: Container(
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("memes").orderBy("timeStamp", descending: true).snapshots(),
+            stream: FirebaseFirestore.instance.collection("news").orderBy("timeStamp", descending: true).snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
               if(!snapshot.hasData){
                 return (const Center(child: Text("No Image uploaded"),));
               }
               else{
                 return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
+                    itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index){
                       String memeUrl = snapshot.data!.docs[index]['url'];
                       String profileUrl = snapshot.data!.docs[index]['profileUrl'];
@@ -225,34 +155,34 @@ class _MemeState extends State<Meme>{
       padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
       child: Card(
         child: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.network(
-                        profileUrl,
-                        height: 40,
-                        width: 40,
-                      ),
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.network(
+                      profileUrl,
+                      height: 40,
+                      width: 40,
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(displayName, style: TextStyle(
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(displayName, style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500
-                      ),),
-                      Text(timeago.format(timestamp.toDate()))
-                    ],
-                  ),
-                ],
-              ),
-              Image.network(memeUrl, fit: BoxFit.cover,),
-            ],
+                    ),),
+                    Text(timeago.format(timestamp.toDate()))
+                  ],
+                ),
+              ],
+            ),
+            Image.network(memeUrl, fit: BoxFit.cover,),
+          ],
         ),
       ),
     );
