@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Components/coming_soon.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -161,7 +162,7 @@ class _MemeState extends State<Meme>{
             ),
             GestureDetector(
               onTap: (){
-
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ComingSoon()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

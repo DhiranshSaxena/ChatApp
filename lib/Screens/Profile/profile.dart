@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Components/coming_soon.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
 import 'package:lpchub/Screens/Memes/memes.dart';
@@ -43,7 +44,7 @@ class ProfileScreen extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,7 +67,7 @@ class ProfileScreen extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Meme()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComingSoon()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
