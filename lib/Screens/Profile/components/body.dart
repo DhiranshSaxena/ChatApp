@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Screens/Profile/components/feedback.dart';
+import 'package:lpchub/Screens/Profile/components/privacy.dart';
 import 'package:lpchub/constant.dart';
 import 'package:lpchub/functions/auth_functions.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
 import 'package:lpchub/functions/wrapper.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class Body extends StatefulWidget{
@@ -21,6 +26,8 @@ class _BodyState extends State<Body>{
   final AuthService _auth = AuthService();
 
   late String myName, myProfilePic, myUserName, myEmail;
+  String discordURL = "https://discord.gg/34TkJRN";
+  String appURL = "https://play.google.com/store/apps/details?id=com.lpchub.lpchub";
 
   getMyInfoFromSharedPreferences() async{
     myName = (await SharedPreferenceHelper().getDisplayName())!;
@@ -118,6 +125,7 @@ class _BodyState extends State<Body>{
             ),
             InkWell(
               onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Privacy()));
               },
               child: Container(
                   margin: EdgeInsets.only(left: 18, right: 18),
@@ -152,136 +160,118 @@ class _BodyState extends State<Body>{
                   ),
                 ),
             ),
-            Container(
-              margin: EdgeInsets.only(left: 18, right: 18, top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1.0,
-                    style: BorderStyle.solid,
+            InkWell(
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FeedbackScreen()));
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 18, right: 18, top: 20),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 1.0,
+                      style: BorderStyle.solid,
 
-                  ),
-                  borderRadius: BorderRadius.circular(30)
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    LineAwesomeIcons.handshake,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 15,),
-                  Expanded(
-                    child: Text(
-                      "Community Guidelines",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18
+                    ),
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      LineAwesomeIcons.handshake,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 15,),
+                    Expanded(
+                      child: Text(
+                        "Feedback",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18
+                        ),
                       ),
                     ),
-                  ),
-                  Icon(Icons.arrow_forward_ios),
-                ],
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(left: 18, right: 18, top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1.0,
-                    style: BorderStyle.solid,
+            InkWell(
+              onTap: (){
+                _launchUrl(appURL);
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 18, right: 18, top: 20),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 1.0,
+                      style: BorderStyle.solid,
 
-                  ),
-                  borderRadius: BorderRadius.circular(30)
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    LineAwesomeIcons.star,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 15,),
-                  Expanded(
-                    child: Text(
-                      "Rate our App",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18
+                    ),
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      LineAwesomeIcons.star,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 15,),
+                    Expanded(
+                      child: Text(
+                        "Rate our App",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18
+                        ),
                       ),
                     ),
-                  ),
-                  Icon(Icons.arrow_forward_ios),
-                ],
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(left: 18, right: 18, top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1.0,
-                    style: BorderStyle.solid,
+            InkWell(
+              onTap: (){
+                _launchUrl(discordURL);
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 18, right: 18, top: 20),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 1.0,
+                      style: BorderStyle.solid,
 
-                  ),
-                  borderRadius: BorderRadius.circular(30)
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    LineAwesomeIcons.discord,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 15,),
-                  Expanded(
-                    child: Text(
-                      "Join Our Discord",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18
+                    ),
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      LineAwesomeIcons.discord,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 15,),
+                    Expanded(
+                      child: Text(
+                        "Join Our Discord",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18
+                        ),
                       ),
                     ),
-                  ),
-                  Icon(Icons.arrow_forward_ios),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 18, right: 18, top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 1.0,
-                    style: BorderStyle.solid,
-
-                  ),
-                  borderRadius: BorderRadius.circular(30)
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    LineAwesomeIcons.alternate_share,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 15,),
-                  Expanded(
-                    child: Text(
-                      "Share SchoolHub",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18
-                      ),
-                    ),
-                  ),
-                  Icon(Icons.arrow_forward_ios),
-                ],
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -299,7 +289,47 @@ class _BodyState extends State<Body>{
               ),
               child: InkWell(
                 onTap: (){
+                  Share.share("https://play.google.com/store/apps/details?id=com.lpchub.lpchub");
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      LineAwesomeIcons.alternate_share,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 15,),
+                    Expanded(
+                      child: Text(
+                        "Share SchoolHub",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18
+                        ),
+                      ),
+                    ),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 18, right: 18, top: 20),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.2),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 1.0,
+                    style: BorderStyle.solid,
+
+                  ),
+                  borderRadius: BorderRadius.circular(30)
+              ),
+              child: InkWell(
+                onTap: () async{
                   _auth.signOut();
+                  SharedPreferences preferences = await SharedPreferences.getInstance();
+                  await preferences.clear();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Wrapper()));
                 },
                 child: Row(
@@ -327,5 +357,13 @@ class _BodyState extends State<Body>{
         ),
       ),
     );
+  }
+}
+
+void _launchUrl(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

@@ -35,3 +35,6 @@ Container(
           ],
         ),
       ),
+
+
+ flutter build appbundle --no-sound-null-safety

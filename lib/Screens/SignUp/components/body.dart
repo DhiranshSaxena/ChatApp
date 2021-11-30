@@ -28,6 +28,11 @@ class _BodyState extends State<Body> {
   String username = '';
   String imageUrl = "https://firebasestorage.googleapis.com/v0/b/schoolhub-2.appspot.com/o/Default%2Fman.png?alt=media&token=01d42963-db52-4a01-8055-526fa6133692";
 
+  showSnackBar(String text, Duration d){
+    final snackBar = SnackBar(content: Text(text), duration: d,);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -301,8 +306,9 @@ class _BodyState extends State<Body> {
                           children: <Widget>[
                             GestureDetector(
                               onTap: (){
-                                AuthService().signInWithFacebook(context);
-                                HelperFunc.saveUserloggedIn(true);
+                                // AuthService().signInWithFacebook(context);
+                                // HelperFunc.saveUserloggedIn(true);
+                                showSnackBar("Coming Soon :)", Duration(milliseconds: 1000));
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 10),
@@ -322,7 +328,9 @@ class _BodyState extends State<Body> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: (){},
+                              onTap: (){
+                                showSnackBar("Coming Soon :)", Duration(milliseconds: 1000));
+                              },
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 10),
                                 padding: EdgeInsets.all(20),

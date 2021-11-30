@@ -280,7 +280,7 @@ class _ComingSoonState extends State<ComingSoon>{
               ),
               Padding(
                 padding: const EdgeInsets.only(top:5.0),
-                child: Text("Version 1.0.0", style: TextStyle(color: Colors.white),),
+                child: Text("Version 1.0.1", style: TextStyle(color: Colors.white),),
               ),
               Text("Schaffen Softwares", style: TextStyle(color: Colors.white),),
             ],

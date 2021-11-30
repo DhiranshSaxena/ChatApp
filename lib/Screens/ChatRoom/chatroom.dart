@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Components/app_theme.dart';
 import 'package:lpchub/functions/database.dart';
 import 'package:lpchub/functions/sharedPref_helper.dart';
@@ -21,6 +22,12 @@ class _ChatRoomState extends State<ChatRoom>{
   late Stream messageStream;
 
   TextEditingController messageTextEditingController = TextEditingController();
+
+  showSnackBar(String text, Duration d){
+    final snackBar = SnackBar(content: Text(text), duration: d,);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
 
   getMyInfoFromSharedPreferences() async{
     myName = (await SharedPreferenceHelper().getDisplayName())!;
@@ -87,9 +94,16 @@ class _ChatRoomState extends State<ChatRoom>{
       mainAxisAlignment: sendBy ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if(sendBy == false)
-          CircleAvatar(
-            backgroundImage: NetworkImage(widget.profileUrl),
-            radius: 15,
+          Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              CircleAvatar(
+                backgroundImage: NetworkImage(widget.profileUrl),
+                radius: 18,
+              ),
+            ],
           ),
         Flexible(
           child: Container(
@@ -163,7 +177,7 @@ class _ChatRoomState extends State<ChatRoom>{
         title: Row(
           children: [
             CircleAvatar(
-              radius: 25,
+              radius: 20,
               backgroundImage: NetworkImage(widget.profileUrl),
               backgroundColor: Colors.white,
             ),
@@ -173,16 +187,15 @@ class _ChatRoomState extends State<ChatRoom>{
         ),
         actions: [
           IconButton(
-              onPressed: (){},
+              onPressed: (){
+                showSnackBar("Coming Soon!", Duration(milliseconds: 1000));
+              },
               icon: Icon(Icons.call, size: 28,),),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.videocam_outlined, size: 28,),),
           SizedBox(
-            width: 10,
+            width: 20,
           )
         ],
-        toolbarHeight: 90,
+        toolbarHeight: 85,
         centerTitle: false,
       ),
         backgroundColor: Color(0xff686795),

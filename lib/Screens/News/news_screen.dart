@@ -35,7 +35,7 @@ class _NewsScreenState extends State<NewsScreen>{
       backgroundColor: Color(0xff686795),
       appBar: AppBar(
         elevation: 0.0,
-        title: Center(child: Text("SchoolHub", style: TextStyle(fontSize: 24 ,fontFamily: "Cairo"),),
+        title: Text("SchoolHub", style: TextStyle(fontSize: 24 ,fontFamily: "Cairo"),
         ),
         backgroundColor: Color(0xff686795),
 

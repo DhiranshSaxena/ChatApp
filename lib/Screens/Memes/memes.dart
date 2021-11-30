@@ -6,7 +6,10 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lpchub/Components/coming_soon.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
+import 'package:lpchub/functions/post_options.dart';
+import 'package:share/share.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:shlink/shlink.dart';
 
 
 import 'dart:io';
@@ -42,7 +45,7 @@ class _MemeState extends State<Meme>{
         backgroundColor: Color(0xff686795),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 15.0),
+            padding: const EdgeInsets.only(right: 20.0),
             child: InkWell(
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen()));
@@ -225,31 +228,56 @@ class _MemeState extends State<Meme>{
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+        ),
         child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.network(
-                        profileUrl,
-                        height: 40,
-                        width: 40,
-                      ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              profileUrl,
+                              height: 40,
+                              width: 40,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(displayName, style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500
+                            ),),
+                            Text(timeago.format(timestamp.toDate()))
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(displayName, style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500
-                      ),),
-                      Text(timeago.format(timestamp.toDate()))
-                    ],
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: InkWell(
+                      onTap: () async{
+                        Share.share(memeUrl, subject: "Shared from SchoolHub");
+                      },
+                      child: Container(
+                        child: Icon(
+                          LineAwesomeIcons.share_square,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
               Image.network(memeUrl, fit: BoxFit.cover,),

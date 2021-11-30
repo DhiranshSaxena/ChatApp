@@ -39,6 +39,23 @@ class DashboardMain extends StatefulWidget{
 
 class _DashboardMainState extends State<DashboardMain>{
 
+  greeting(){
+    var hour = DateTime.now().hour;
+    print(hour);
+    if(hour <= 12){
+      return "Morning";
+    }
+    else if(hour <= 16){
+      return "Afternoon";
+    }
+    else if(hour <= 22){
+      return "Evening";
+    }
+    else{
+      return "Night";
+    }
+  }
+
 
   late String myName="", myProfilePic, myUserName, myEmail;
 
@@ -67,6 +84,8 @@ class _DashboardMainState extends State<DashboardMain>{
   @override
   Widget build(BuildContext context){
     var size = MediaQuery.of(context).size;
+    String greetingMes = greeting();
+    print(greetingMes);
     return Scaffold(
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
@@ -177,12 +196,14 @@ class _DashboardMainState extends State<DashboardMain>{
                       ),
                     ),
                   ),
-                  Text(
-                    "Good Morning, \n${myName}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
+                  Container(
+                    child: Text(
+                      "Good ${greetingMes}, \n${myName}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 30),
@@ -321,10 +342,10 @@ class _DashboardMainState extends State<DashboardMain>{
                                   child: Column(
                                     children: <Widget>[
                                       Spacer(),
-                                      SvgPicture.asset("asset/icons/Hamburger.svg"),
+                                      SvgPicture.asset("asset/icons/news.svg", height: 70,width: 70,),
                                       Spacer(),
                                       Text(
-                                        "Near Your Place",
+                                        "News Section",
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme

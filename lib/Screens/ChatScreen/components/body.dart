@@ -151,6 +151,7 @@ class _BodyState extends State<Body>{
         backgroundColor: Color(0xff686795),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
