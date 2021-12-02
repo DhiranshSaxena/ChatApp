@@ -3,8 +3,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Components/coming_soon.dart';
 import 'package:lpchub/Screens/ChatScreen/chat_home.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
+import 'package:lpchub/Screens/Memes/memes.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 
@@ -56,19 +58,19 @@ class _NewsScreenState extends State<NewsScreen>{
                 children: <Widget>[
                   Icon(
                     LineAwesomeIcons.dashcube,
-                    color: isActive ? kActiveIconColor : kTextColor,
+                    color: isActive1 ? kBlueColor : kTextColor,
                     size: 35,
                   ),
                   Text(
                     "Dashboard",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
+                    style: TextStyle(color: isActive1 ? kBlueColor : kTextColor),
                   ),
                 ],
               ),
             ),
             GestureDetector(
               onTap: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ChatScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Meme()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -79,31 +81,31 @@ class _NewsScreenState extends State<NewsScreen>{
                   // ),
                   Icon(
                     LineAwesomeIcons.rocket_chat,
-                    color: isActive ? kActiveIconColor : kTextColor,
+                    color: isActive ? kBlueColor : kTextColor,
                     size: 35,
                   ),
                   Text(
-                    "Messages",
-                    style: TextStyle(color: isActive ? kActiveIconColor : kTextColor),
+                    "Social",
+                    style: TextStyle(color: isActive ? kBlueColor : kTextColor),
                   ),
                 ],
               ),
             ),
             GestureDetector(
               onTap: (){
-
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ComingSoon()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Icon(
                     LineAwesomeIcons.laugh_face_with_beaming_eyes,
-                    color: isActive1 ? kActiveIconColor : kTextColor,
+                    color: isActive ? kBlueColor : kTextColor,
                     size: 35,
                   ),
                   Text(
-                    "Memes",
-                    style: TextStyle(color: isActive1 ? kActiveIconColor : kTextColor),
+                    "Coming Soon",
+                    style: TextStyle(color: isActive ? kBlueColor : kTextColor),
                   ),
                 ],
               ),

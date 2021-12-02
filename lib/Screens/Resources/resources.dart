@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:lpchub/Components/coming_soon.dart';
 import 'package:lpchub/Screens/Dashboard/dashboard_main.dart';
 import 'package:lpchub/Screens/Memes/memes.dart';
 
@@ -65,7 +66,7 @@ class Resources extends StatelessWidget{
             ),
             GestureDetector(
               onTap: (){
-
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ComingSoon()));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

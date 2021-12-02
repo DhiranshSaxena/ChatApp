@@ -131,8 +131,7 @@ class _AlumniState extends State<Alumni>{
                 );
                 panels.add(alumniTitlePanel);
               }
-              return Expanded(
-                child: ListView(
+              return ListView(
                   children: panels.isEmpty?[
                   SizedBox(
                     height: 10.0,
@@ -145,8 +144,7 @@ class _AlumniState extends State<Alumni>{
                       ),
                     )
                     ] : panels,
-                ),
-              );
+                );
             }
           },
         ),
